@@ -16,14 +16,15 @@ export default function App() {
   const fetchData = async () => {
     const API = "http://192.170.0.129:3000/api";
     const URL = `${API}/user`;
-    console.log(URL);
     setLoading(true);
 
     try {
       const response = await fetch(URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const json = await response.json();
-      setData(json)
-      console.log(json);
+      setData(json);
     } catch (error) {
       console.log(error);
     } finally {
@@ -42,7 +43,7 @@ export default function App() {
         )}
         {data &&
           data.map((item) => {
-            return <Text>{item.email}</Text>;
+            return <Text key={item.id}>{item.email}</Text>;
           })}
       </View>
       <StatusBar style="auto" />
