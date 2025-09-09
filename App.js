@@ -39,7 +39,10 @@ export default function App() {
         {loading ? (
           <ActivityIndicator />
         ) : (
-          <Button title="Buscar Dados" onPress={fetchData} />
+          <>
+            <Button title="Buscar Dados" onPress={fetchData} />
+            <Button title="Limpar Dados" onPress={() => setData([])} />
+          </>
         )}
         {data &&
           data.map((item) => {
