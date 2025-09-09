@@ -14,7 +14,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
-    const API = "http://192.168.100.109:3000/api";
+    const API = "http://192.170.0.129:3000/api";
     const URL = `${API}/user`;
     console.log(URL);
     setLoading(true);
@@ -22,6 +22,7 @@ export default function App() {
     try {
       const response = await fetch(URL);
       const json = await response.json();
+      setData(json)
       console.log(json);
     } catch (error) {
       console.log(error);
@@ -39,6 +40,10 @@ export default function App() {
         ) : (
           <Button title="Buscar Dados" onPress={fetchData} />
         )}
+        {data &&
+          data.map((item) => {
+            return <Text>{item.email}</Text>;
+          })}
       </View>
       <StatusBar style="auto" />
     </View>
