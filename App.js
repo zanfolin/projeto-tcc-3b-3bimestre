@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -37,17 +38,27 @@ export default function App() {
     const URL = `${API}/user`;
     setLoading(true);
 
+    //Se orientar pelo servidor quais dados obrigatórios devem ser enviados
     body = { username: "Graziani01", email: "graziani01@etec.sp.gov.br" };
 
+    //Padrão pelo qual será enviado o dado
+    headers = { "Content-Type": "application/json" };
+
+    page = {
+       method: "POST",
+       body: JSON.stringify(body),
+       headers
+    }
+
     try {
-      const response = await fetch(URL);
+      const response = await fetch(URL, page);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const json = await response.json();
-      setData(json);
+      Alert.alert('Dados enviados com sucesso');
     } catch (error) {
       console.log(error);
+      Alert.alert('Dados com erro');
     } finally {
       setLoading(false);
     }
