@@ -74,6 +74,7 @@ export default function App() {
           <>
             <Button title="Buscar Dados" onPress={fetchData} />
             <Button title="Limpar Dados" onPress={() => setData([])} />
+              <Button title="Gravar Dados" onPress={postData} />
           </>
         )}
         {data &&
