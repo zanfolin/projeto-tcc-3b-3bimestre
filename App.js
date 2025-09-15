@@ -14,9 +14,30 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
-    const API = "http://192.170.0.129:3000/api";
+    const API = "http://192.168.100.109:3000/api";
     const URL = `${API}/user`;
     setLoading(true);
+
+    try {
+      const response = await fetch(URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const postData = async () => {
+    const API = "http://192.168.100.109:3000/api";
+    const URL = `${API}/user`;
+    setLoading(true);
+
+    body = { username: "Graziani01", email: "graziani01@etec.sp.gov.br" };
 
     try {
       const response = await fetch(URL);
